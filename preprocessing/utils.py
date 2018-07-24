@@ -32,15 +32,19 @@ def maybe_download(filename, source_url, work_directory):
     """Download the filename from the source url into the working directory if it does not exist."""
     if not os.path.exists(work_directory):
         os.makedirs(work_directory)
+
     filepath = os.path.join(work_directory, filename)
     if not os.path.exists(filepath):
         urllib3.disable_warnings()
         with urllib3.PoolManager() as http:
-            r = http.request('GET', source_url)
+            r = http.request('GET', source_url, preload_content=False)
             with open(filepath, 'wb') as fout:
-                fout.write(r.read())
+                for chunk in r.stream(32):
+                    fout.write(chunk)
 
         print('{} succesfully downloaded'.format(filename))
+    else:
+        print('{} already exists'.format(filename))
     return filepath
 
 
