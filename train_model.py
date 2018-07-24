@@ -3,9 +3,9 @@ import numpy as np
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 os.environ["CUDA_VISIBLE_DEVICES"]="1"
 
-from keras_wiki_lm.preprocessing.data import get_wikitext103_corpus
-from keras_wiki_lm.preprocessing import utils
-from keras_wiki_lm.model.language_model import build_language_model
+from keras_lm.preprocessing.data import get_wikitext103_corpus
+from keras_lm.preprocessing import utils
+from keras_lm.model.language_model import build_language_model
 
 
 def train_language_model(corpus, epochs=5):

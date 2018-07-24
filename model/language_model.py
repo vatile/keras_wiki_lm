@@ -5,16 +5,15 @@ from keras.layers import Input, CuDNNLSTM, LSTM, Embedding, Dense, CuDNNGRU, LST
 from keras.models import Model
 from keras.optimizers import Adam
 
-from keras_wiki_lm.model.tied_embeddings import TiedEmbeddingsTransposed
-from keras_wiki_lm.model.qrnn import QRNN
-
+from keras_lm.model.tied_embeddings import TiedEmbeddingsTransposed
+from keras_lm.model.qrnn import QRNN
 
 
 def build_language_model(num_words, dropout=0.1, dropouth=0.3, dropouti=0.2, dropoute=0.1, wdrop=0.5,
-                         tie_weights=True, use_qrnn=False, use_gpu=True):
+                         tie_weights=True, use_qrnn=False, use_gpu=False):
 
     inp = Input(shape=(None,))
-    emb = Embedding(num_words,300)
+    emb = Embedding(num_words, 300)
     emb_inp = emb(inp)
     emb_inp = Dropout(dropouti)(emb_inp)
 
